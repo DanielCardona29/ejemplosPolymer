@@ -1,0 +1,41 @@
+<link rel="import" href="../polymer/polymer-element.html" />
+
+<!-- Elementos -->
+<link rel="import" href="components/pokemon-card/pokemon-card.html" />
+
+
+<dom-module id="pokemons-element">
+  <template>
+    <style>
+      .wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+      }
+    </style>
+
+
+    <iron-ajax
+      auto
+      handle-as="json"
+      url="https://pokeapi.co/api/v2/pokemon?limit=100&offset=0"
+      last-response="{{pokemonList}}"
+    ></iron-ajax>
+
+    <div class="wrapper">
+      <template is="dom-repeat" items="[[pokemonList.results]]">
+        <pokemon-card name="[[item.name]]" url="[[item.url]]" />
+      </template>
+    </div>
+    
+  </template>
+
+  <script
+    src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+    crossorigin="anonymous"
+  ></script>
+  <script src="pokemons-element.js"></script>
+</dom-module>

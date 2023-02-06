@@ -1,0 +1,70 @@
+<link rel="import" href="../../../polymer/polymer-element.html" />
+<link rel="import" href="../../../iron-ajax/iron-ajax.html" />
+<link rel="import" href="../poke-modal/poke-modal.html" />
+
+<dom-module id="pokemon-card">
+  <template>
+    <!--Estilos -->
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400;500;600;700;800;900&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: "Unbounded", cursive;
+      }
+
+      .poke-wrapper {
+        background-color: #93c6e7;
+        width: 300px;
+        height: 400px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+        border-radius: 5px;
+        margin: 10px;
+        transition: 0.3s;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .poke-wrapper:hover {
+        transform: scale(1.05);
+      }
+
+      .poke-wrapper:active {
+        transform: scale(0.95);
+      }
+
+      .poke-name {
+        font-weight: bold;
+        user-select: none;
+        font-size: 18px;
+      }
+    </style>
+
+    <!-- Llamado a la API -->
+    <iron-ajax
+      auto
+      handle-as="json"
+      url="[[url]]"
+      last-response="{{pokemon}}"
+    ></iron-ajax>
+
+    <!-- Modal -->
+    <poke-modal is-open="{{show}}" pokemon-info="[[pokemon]]"></poke-modal>
+
+    <section class="poke-wrapper" on-click="description">
+      <img
+        alt="[[pokemon.name]]"
+        src="[[pokemon.sprites.other.dream_world.front_default]]"
+        width="300"
+        height="300"
+      />
+      <p class="poke-name">[[pokemon.name]]</p>
+    </section>
+  </template>
+
+  <script src="pokemon.js"></script>
+</dom-module>
